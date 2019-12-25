@@ -1,9 +1,12 @@
 from unittest import TestCase
 
 from nitpicks import (
+    AST_CHECKER_NAME,
+    AST_CHECKER_VERSION,
     CHECKER_NAME,
     CHECKER_VERSION,
     generic_exception_check,
+    SetattrCheck,
 )
 
 
@@ -52,3 +55,15 @@ class TestBareExceptCheck(TestCase):
         for case in error_cases:
             errors = list(generic_exception_check(case))
             self.assertEqual(len(errors), 1)
+
+
+class TestSetattrCheck(TestCase):
+    def test_version_and_name(self):
+        checker = SetattrCheck(tree=None, filename=None)
+        self.assertEqual(checker.name, AST_CHECKER_NAME)
+        self.assertEqual(checker.version, AST_CHECKER_VERSION)
+
+    def test_setattr_checker_run_method_works(self):
+        checker = SetattrCheck(tree=None, filename=None)
+        checker.run()
+        self.fail('Need to make actual run method - also need to figure out what format tree flake8 passes in')
